@@ -8,7 +8,7 @@
 
 import UIKit
 
-public protocol Coverable {
+@MainActor public protocol Coverable {
     
     /**
      The path that will be used to mask the content and add the gradient.
@@ -51,7 +51,7 @@ extension Coverable where Self: UIView {
 
 extension Array where Element: CoverableView {
     
-    var coverablePath: UIBezierPath {
+    @MainActor var coverablePath: UIBezierPath {
         return reduce(UIBezierPath(), { totalPath, cell in
             cell.addCoverablePath(to: totalPath)
             return totalPath

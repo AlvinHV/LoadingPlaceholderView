@@ -10,7 +10,7 @@ import UIKit
 
 extension UIView {
     
-    private struct AssociatedObjectKey {
+    @MainActor private struct AssociatedObjectKey {
         static var isCoverable = "isCoverable"
         static var coverablePath = "coverablePath"
     }
@@ -73,7 +73,7 @@ extension UITextField: Coverable { }
 
 extension UILabel: Coverable {
     
-    private struct AssociatedObjectKey {
+    @MainActor private struct AssociatedObjectKey {
         static var linesSpacing = "linesSpacing"
     }
     
@@ -110,7 +110,7 @@ extension UILabel: Coverable {
 
 extension UITextView: Coverable {
     
-    private struct AssociatedObjectKey {
+    @MainActor private struct AssociatedObjectKey {
         static var linesSpacing = "linesSpacing"
     }
     
@@ -174,7 +174,7 @@ extension UIStepper: Coverable {
 
 extension UITableView: Coverable {
     
-    private struct AssociatedObjectKey {
+    @MainActor private struct AssociatedObjectKey {
         static var coverableCellsIdentifiers = "coverableCellsIdentifiers"
     }
     
