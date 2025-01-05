@@ -129,10 +129,24 @@ open class LoadingPlaceholderView: UIView {
         self.viewToCover = viewToCover
         self.frame = viewToCover.bounds
         viewToConverObservation = observe(\.bounds) { [weak self] _, _ in
-            if self?.isCovering == true {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                    self?.setupMaskLayerIfNeeded()
-                    self?.setupGradientLayerIfNeeded()
+            if #available(iOS 13.0, tvOS 13.0, *) {
+                MainActor.assumeIsolated {
+                    if self?.isCovering == true {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                            self?.setupMaskLayerIfNeeded()
+                            self?.setupGradientLayerIfNeeded()
+                        }
+                    }
+                }
+            }
+            else {
+                DispatchQueue.main.async {
+                    if self?.isCovering == true {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                            self?.setupMaskLayerIfNeeded()
+                            self?.setupGradientLayerIfNeeded()
+                        }
+                    }
                 }
             }
         }
